@@ -1,14 +1,35 @@
-import { createStore } from 'vuex'
+import axios from 'axios'
+import {
+  createStore
+} from 'vuex'
 
-export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
+
+export const store = createStore({
+
+    state: {
+       
+        products: null,
+       
+     
+    },
+
+    mutations: {
+        getProducts(state, payload) {
+            state.products = payload
+        },
+       
+    },
+
+    actions: {
+        async getUsers(context) {
+            let response = await fetch('https://dummyjson.com/products?&limit=100')
+            let result = await response.json()
+      
+            context.commit('getProducts', result.products)
+        }
+    },
+
+    getters: {
+       
+    },
 })
